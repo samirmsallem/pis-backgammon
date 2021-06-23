@@ -44,6 +44,7 @@ Die Ausführung des Spiels und der Tests erfolgt mit den bekannten Gradle Befehl
 \README.md
 \build.gradle
 \core.jar
+\sample.png
 \bin\main\bg.png
 \bin\main\backgammon\AL.class
 \bin\main\backgammon\App.class
