@@ -39,33 +39,7 @@ Die Ausführung des Spiels und der Tests erfolgt mit den bekannten Gradle Befehl
 
 
 ## Dateiübersicht und Lines of Code
-
-<<<<<<< HEAD
-        \README.md
-        \build.gradle
-        \core.jar
-        \bin\main\bg.png
-        \bin\main\backgammon\AL.class
-        \bin\main\backgammon\App.class
-        \bin\main\backgammon\Backend.class
-        \bin\main\backgammon\Stone.class
-        \bin\test\backgammon\AppTest.class
-        \src\main\java\backgammon\AL.java
-        \src\main\java\backgammon\App.java
-        \src\main\java\backgammon\Backend.java
-        \src\main\java\backgammon\Stone.java
-        \src\main\resources\bg.png
-        \src\test\java\backgammon\AppTest.java
-		
-		
-		-------------------------------------------------------------------------------
-		Language                     files          blank        comment           code
-		-------------------------------------------------------------------------------
-		Java                             4            143            148            471
-		-------------------------------------------------------------------------------
-		SUM:                             4            143            148            471
-		-------------------------------------------------------------------------------
-=======
+		     
 ```
 \README.md
 \build.gradle
@@ -93,11 +67,10 @@ Java                             4            143            148            471
 SUM:                             4            143            148            471
 -------------------------------------------------------------------------------
 ```
->>>>>>> daec3ce482f06a83c57debfae16b7866a03df8ac
+
 
 ## Quellenangaben
 
-dawd
 
 
 
