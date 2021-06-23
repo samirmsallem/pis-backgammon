@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="backgammon.AppTest" tests="23" skipped="0" failures="0" errors="0" timestamp="2021-06-23T13:02:26" hostname="SAMIR" time="0.016">
+  <properties/>
+  <testcase name="testNextPlayer" classname="backgammon.AppTest" time="0.002"/>
+  <testcase name="testTakeOut" classname="backgammon.AppTest" time="0.002"/>
+  <testcase name="testMovableStones" classname="backgammon.AppTest" time="0.002"/>
+  <testcase name="testDice2" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testDice" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testCanReenter" classname="backgammon.AppTest" time="0.002"/>
+  <testcase name="testNewPosCalc" classname="backgammon.AppTest" time="0.002"/>
+  <testcase name="testBlocked" classname="backgammon.AppTest" time="0.001"/>
+  <testcase name="testBlocked2" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testTakeOut2" classname="backgammon.AppTest" time="0.001"/>
+  <testcase name="testRemoving" classname="backgammon.AppTest" time="0.001"/>
+  <testcase name="testReenter" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testMoving2" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testMoving3" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testMoving4" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testStoneConst" classname="backgammon.AppTest" time="0.001"/>
+  <testcase name="testStoneCount" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testMovableStones2" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testAdding" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testMoving" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testPlayer" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testPutOut" classname="backgammon.AppTest" time="0.0"/>
+  <testcase name="testStoneStructure" classname="backgammon.AppTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
