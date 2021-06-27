@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Observer;
 import java.util.Set;
 
-public interface Backend{
+public interface GameEngine{
 	
 	/**
 	 * 
@@ -20,10 +20,28 @@ public interface Backend{
 	public Map<Integer, Integer> getBlackPos();
 	
 	/**
+	 * Set the position map of the white player
+	 * @param map : the positions stored in a map (field : amount of stones)
+	 */
+	public void setWhitePos(Map<Integer, Integer> map);
+	
+	/**
+	 * Set the position map of the black player
+	 * @param map : the positions stored in a map (field : amount of stones)
+	 */
+	public void setBlackPos(Map<Integer, Integer> map);
+	
+	/**
 	 * 
 	 * @return the current player playing
 	 */
 	public int getCurrentPlayer();
+	
+	/**
+	 * Set the current player
+	 * @param player : either 1 or -1
+	 */
+	public void setCurrentPlayer(int player);
 	
 	
 	/**
@@ -56,6 +74,12 @@ public interface Backend{
 	 * @return a list of numbers, representing the dice values the player has, with which he can perform a move
 	 */
 	public ArrayList<Integer> getDiceValues();
+	
+	/**
+	 * Add a dice value to the dice stack
+	 * @param n the number that should be added
+	 */
+	public void addDiceValue(int n);
 	
 	/**
 	 * Removes a number from the dice values 

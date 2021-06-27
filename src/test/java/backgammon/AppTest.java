@@ -7,8 +7,10 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -16,7 +18,7 @@ import org.junit.Test;
 
 
 public class AppTest {
-    private AL b;
+    private GameEngine b;
 
 
     @Test
@@ -32,7 +34,7 @@ public class AppTest {
     @Test
     public void testCanReenter() {
     	b = new AL();
-    	b.currentplayer = -1;
+    	b.setCurrentPlayer(-1);
     	
     	
     	IntStream.iterate(0, i -> i + 1).limit(2).forEach((count) -> { 
@@ -41,7 +43,7 @@ public class AppTest {
     	
     	b.nextPlayer(); //switching to next player
     	
-    	Set.of(3,6).stream().forEach(n -> b.dice_values.add(n)); // adding 3 and 6 to the dice values
+    	Set.of(3,6).stream().forEach(n -> b.addDiceValue(n)); // adding 3 and 6 to the dice values
 
     	
     	IntStream.range(1, 7).forEach(field -> { //checking for every homefield (range 1-6) whether the player can reenter. as he has numbers 3 and 6 and both fields are blocked this should return false 
@@ -124,7 +126,7 @@ public class AppTest {
     	b.defaultStoneStructure();
     	b.chooseRandomPlayer();
     	
-    	b.dice_values.add(3);
+    	b.addDiceValue(3);
     	int startfrom = b.getCurrentPlayer() == 1 ? 1 : 24;
     	int useddicenum = b.getDiceValues().get(0);
     	int destinatedfield = b.getCurrentPlayer() == 1 ? (startfrom + useddicenum) : (startfrom - useddicenum);
@@ -141,8 +143,8 @@ public class AppTest {
     public void testMoving2() {
     	b = new AL();
     	b.defaultStoneStructure();
-    	b.currentplayer = 1;
-    	b.dice_values.add(3);
+    	b.setCurrentPlayer(1);
+    	b.addDiceValue(3);
     	
     	int useddicenum = b.getDiceValues().get(0);
     	int destinatedfield = 24 - useddicenum;
@@ -154,8 +156,8 @@ public class AppTest {
     public void testMoving3() {
     	b = new AL();
     	b.defaultStoneStructure();
-    	b.currentplayer = 1;
-    	b.dice_values.add(5); 
+    	b.setCurrentPlayer(1);
+    	b.addDiceValue(5);
     	
     	int useddicenum = b.getDiceValues().get(0);
     	int destinatedfield = 1 + useddicenum;
@@ -167,12 +169,12 @@ public class AppTest {
     public void testMoving4() {
     	b = new AL();
     	b.defaultStoneStructure();
-    	b.currentplayer = 1;
-    	b.dice_values.add(2); 
+    	b.setCurrentPlayer(1);
+    	b.addDiceValue(2); 
 
     	b.move(17, 19);
     	
-		assertTrue("Würfelzahl wurde nicht entfernt!", b.dice_values.isEmpty());
+		assertTrue("Würfelzahl wurde nicht entfernt!", b.getDiceValues().isEmpty());
 		assertTrue("Der Stein wurde nicht richtig umgesetzt!", b.getWhitePos().get(17) == 2 && b.getWhitePos().get(19) == 6);
     }
     
@@ -180,7 +182,7 @@ public class AppTest {
     public void testRemoving() {
     	b = new AL();
     	b.defaultStoneStructure();
-    	b.currentplayer = 1;
+    	b.setCurrentPlayer(1);
     	
     	b.removeOne(1);
 		assertTrue("Bei entfernen eines Steins muss die Steinanzahl sinken!", b.getStoneCount(1) == b.getStoneCount(-1) - 1 && b.getWhitePos().get(1) == 1);
@@ -190,7 +192,7 @@ public class AppTest {
     public void testAdding() {
     	b = new AL();
     	b.defaultStoneStructure();
-    	b.currentplayer = 1;
+    	b.setCurrentPlayer(1);
     	int amount_before = b.getWhitePos().get(1);
     	b.addOne(1);
     	int amount_after = b.getWhitePos().get(1);
@@ -200,7 +202,7 @@ public class AppTest {
     @Test
     public void testReenter() {
     	b = new AL();
-    	b.currentplayer = 1;
+    	b.setCurrentPlayer(1);
     	b.addOne(3); //adding a stone on field 3 for player 1
  
     	b.nextPlayer(); //changing player to -1
@@ -214,12 +216,12 @@ public class AppTest {
     	
     	b.nextPlayer();
     	
-    	b.dice_values.add(6); //adding dice number 6
+    	b.addDiceValue(6); //adding dice number 6
     	if(b.canReenter(6)) b.reenter(6); //trying to reenter on field 6
     	
     	assertSame("Der Stein wurde wiedereingesetzt, obwohl dies nicht erlaubt ist, da das Feld blockiert ist!", b.getWhiteKicked(), 1);
     	
-    	b.dice_values.add(2); //adding another dice number
+    	b.addDiceValue(2); //adding another dice number
     	if(b.canReenter(2)) b.reenter(2); //as no stone is on field 2, this should affect that the stone of player 1 can reenter
     	
     	assertSame("Anzahl muss 0 sein, da Stein wiedereingestiegen ist!", b.getWhiteKicked(), 0);
@@ -238,19 +240,18 @@ public class AppTest {
     @Test
     public void testBlocked2() {
     	b = new AL();
-    	b.currentplayer = -1;
-    	
+    	b.setCurrentPlayer(-1);    	
     	b.addOne(6);
     	b.addOne(6); //blocking field 6 with 2 stones of player -1
     	
     	b.nextPlayer();
     	
     	b.addOne(4); //player 1 putting one stone on field 4
-    	b.dice_values.add(2); //adding the dice number two to the field -> only possible move would be field 4 + 2 and that is not possible!
+    	b.addDiceValue(2); //adding the dice number two to the field -> only possible move would be field 4 + 2 and that is not possible!
     	
     	assertTrue("Der Spieler kann keinen Zug machen!", b.isBlocked());
     	
-    	b.dice_values.add(3); //adding the number 3 to the dice values, now a move should be possible!
+    	b.addDiceValue(3); //adding the number 3 to the dice values, now a move should be possible!
     	
     	assertFalse("Der Spieler kann einen Zug machen!", b.isBlocked());
     }
@@ -258,7 +259,7 @@ public class AppTest {
     @Test
     public void testNewPosCalc() {
     	b = new AL();
-    	b.currentplayer = -1;
+    	b.setCurrentPlayer(-1);
     	
     	b.addOne(6);
     	b.addOne(6);
@@ -267,7 +268,7 @@ public class AppTest {
     	
     	b.addOne(1);
     	
-    	List.of(3,5).stream().forEach(n -> b.dice_values.add(n));
+    	List.of(3,5).stream().forEach(n -> 	b.addDiceValue(n));
 
     	assertEquals("Der Zug von Feld 1 zu 4 muss möglich sein, da kein blockierender Stein dort ist!", Set.of(4), b.calcNewPos(1));
     	
@@ -280,7 +281,7 @@ public class AppTest {
     public void testMovableStones() {
     	b = new AL();
     	
-    	b.currentplayer = -1;
+    	b.setCurrentPlayer(-1);
     	
     	b.addOne(6);
     	b.addOne(6);
@@ -290,7 +291,7 @@ public class AppTest {
     	
     	List.of(1,2,3).stream().forEach(n -> b.addOne(n));
     	
-    	b.dice_values.add(5);
+    	b.addDiceValue(5);
     	
     	assertEquals("Der Stein auf Feld 1 darf nicht zu den verschiebbaren Steinen zählen!", b.getMovableStones(), Set.of(2,3));
     }
@@ -299,17 +300,17 @@ public class AppTest {
     public void testMovableStones2() {
     	b = new AL();
     	
-    	b.currentplayer = 1;
+    	b.setCurrentPlayer(1);
     	
     	List.of(20,22).stream().forEach(n -> b.addOne(n));
     	
-    	b.dice_values.add(5);
+    	b.addDiceValue(5);
     	
     	assertTrue("Der Stein auf Feld 1 darf nicht zu den verschiebbaren Steinen zählen!", b.getMovableStones().isEmpty());
     }
     
     @Test
-    public void testPutOut() {
+    public void testCanPutOut() {
     	b = new AL();
     	b.chooseRandomPlayer();
     	
@@ -323,8 +324,8 @@ public class AppTest {
     	b = new AL();
     	b.defaultStoneStructure();
     	
-    	b.currentplayer = -1;
-    	b.dice_values.add(6);
+    	b.setCurrentPlayer(-1);
+    	b.addDiceValue(6);
     	
     	assertFalse("Solange nicht alle Steine im Heimbereich stehen, kann keiner entnommen werden!", b.takeOut(6));
     }
@@ -333,15 +334,69 @@ public class AppTest {
     public void testTakeOut2() {
     	b = new AL();
     	
-    	b.currentplayer = -1;
-    	
+    	b.setCurrentPlayer(-1);
     	List.of(1,2,3,4).forEach(n -> b.addOne(n));
     	
-    	b.dice_values.add(5);
+    	b.addDiceValue(5);
+    	b.addDiceValue(4);
     	
     	assertTrue("Es muss möglich sein Steine herauszunehmen, wenn alle im Heimbereich sind und eine Würfelzahl >= dem Feld existiert auf dem der Stein entnommen werden soll!", b.takeOut(4));
     	
     	assertTrue("Wenn alle Würfelzahlen aufgebraucht sind, ist ein Herausnehmen bis zur nächsten Runde nicht möglich!", b.takeOut(3));
+    }
+    
+    @Test
+    public void testTakeOut3() {
+    	b = new AL();
+    	
+    	b.setCurrentPlayer(-1);
+    	List.of(2,3,4,5).forEach(n -> b.addOne(n));
+    	
+    	b.addDiceValue(4);
+    	b.addDiceValue(1);
+    	
+    	assertTrue("Der Zug von 5 zu 1 muss möglich sein, auch wenn der Spieler herausnehmen kann!", b.move(5, 1));
+    	
+    	assertTrue("Der auf 1 bewegte Stein muss mit der dem Feld entsprechenden Würfelzahl herausgenommen werden können!", b.takeOut(1));
+    }
+    
+    @Test
+    public void testWin() {
+    	b = new AL();
+    	
+    	b.setCurrentPlayer(-1);
+    	List.of(1,2,3).forEach(n -> b.addOne(n));
+    	
+    	b.addDiceValue(1);
+    	b.addDiceValue(2);
+    	
+    	
+    	b.takeOut(1);
+    	b.takeOut(2);
+    	
+    	assertFalse("Spieler hat noch einen Stein übrig, kann also nicht gewonnen haben!", b.checkforWin());
+    	
+    	b.nextPlayer();
+    	
+    	assertTrue("Der andere Spieler hat keine Steine auf dem Feld -> Muss gewonnen haben nach Spiellogik!", b.checkforWin());
+    }
+    
+    @Test
+    public void testAbnormal() {
+    	b = new AL();
+    	
+    	b.defaultStoneStructure();
+    	
+    	Map<Integer, Integer> tmp = b.getBlackPos();
+    	
+    	b.setBlackPos(new HashMap<>());
+    	
+    	assertFalse("Nach Änderung ist die Map der enthaltenen Felder anders!", Objects.deepEquals(tmp, b.getBlackPos()));
+    	
+    	b.defaultStoneStructure();
+    	
+    	assertTrue("Nach reset müssen Felder wieder die gleichen Steine halten!", Objects.deepEquals(tmp, b.getBlackPos()));
+    	
     }
     
     

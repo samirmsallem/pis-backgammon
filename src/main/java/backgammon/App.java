@@ -13,7 +13,7 @@ import processing.core.PImage;
 
 public class App extends PApplet{
 	
-	Backend b = new AL();
+	GameEngine b = new AL();
 	List<Integer> positions = List.of(0,66,140,214,288,362,436,562,636,710,784,858,932,932,858,784,710,636,562,436,362,288,214,140,66);
 	
     public static void main(String[] args) { PApplet.runSketch(new String[]{"Backgammon"}, new App()); }
@@ -273,9 +273,7 @@ public class App extends PApplet{
 					|| (b.getCurrentPlayer() == -1 && b.getBlackKicked() > 0 && getField() > 18 && getField() < 25))) {
 					int field = getField();
 					//if the player is able to reenter (for this case the field he clicked on needs to be one of his dice numbers AND the opponent should not block it)
-					if(b.canReenter(field)){ 
-						b.reenter(field);
-					}
+					if(b.canReenter(field)) b.reenter(field);
 				}
 			}
 		}

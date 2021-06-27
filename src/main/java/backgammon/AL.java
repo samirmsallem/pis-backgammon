@@ -4,18 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
 
-public class AL implements Backend{
+public class AL implements GameEngine{
 	
 	
 	private Map<Integer, Integer> white = new HashMap<>(); // int 1
 	private Map<Integer, Integer> black = new HashMap<>(); // int -1
 	
-	public ArrayList<Integer> dice_values = new ArrayList<>(); //public, in order to access from test class, otherwise i would do it private
-	public int currentplayer;
+	private ArrayList<Integer> dice_values = new ArrayList<>();
+	private int currentplayer;
 	
 	private int white_kicked;
 	private int black_kicked;
@@ -29,7 +31,16 @@ public class AL implements Backend{
 	public Map<Integer, Integer> getBlackPos() { return black; }
 	
 	@Override
+	public void setWhitePos(Map<Integer, Integer> map) { white = map; }
+	
+	@Override
+	public void setBlackPos(Map<Integer, Integer> map) { black = map; }
+	
+	@Override
 	public int getCurrentPlayer() { return currentplayer; }
+	
+	@Override
+	public void setCurrentPlayer(int player) { currentplayer = player; }
 	
 	@Override
 	public int getStoneCount(int player) {
@@ -52,11 +63,15 @@ public class AL implements Backend{
 	public ArrayList<Integer> getDiceValues() { return dice_values; }
 	
 	@Override
+	public void addDiceValue(int n) { dice_values.add(n); }
+	
+	@Override
 	public void removeFromDiceStack(int n) { dice_values.remove((Integer) n); }
 	
 	@Override
 	public void defaultStoneStructure() { //places the stones at the standard positions
-		white.clear(); black.clear();
+		white.clear(); 
+		black.clear();
 		
 		white.put(1,2);
 		white.put(12,5);
@@ -88,40 +103,35 @@ public class AL implements Backend{
 		int left = ThreadLocalRandom.current().nextInt(1, 6 + 1);
 		int right = ThreadLocalRandom.current().nextInt(1, 6 + 1); // generate two random dice values between 1-6
 		
-		if(left == right) { //if both numbers are the same -> double! -> the player gets the value 4 times and can perform 4 moves
-			for(int i=0; i<4; i++) {
-				dice_values.add(left);
-			}
-		} else { //otherwise just add the two values
-			dice_values.add(left);
-			dice_values.add(right);
+		if(left == right) IntStream.iterate(0, i -> i + 1).limit(4).forEach((count) -> {addDiceValue(left);});
+		else { //otherwise just add the two values
+			addDiceValue(left);
+			addDiceValue(right);
 		}
 		
 	}
 	
 	public boolean move(int from, int to) { //moves a stone from a field to another given in the parameters, returns true if success, false otherwise
 		if(getCurrentPlayer() == 1 && white.containsKey(from) && to <=24 && white_kicked == 0 && dice_values.contains(to-from)) { //check if the player moves in the field range and he has the dice value he needs to perform a movement
-			if(black.containsKey(to) && black.get(to) > 1) { //if more than 1 stones are on the destination field the player is UNNABLE to move
-				return false; //abort move
-			} else { //if there is 1 or less he is able to move
-				if(black.containsKey(to) && black.get(to) == 1) kick(to); //if opponent stone is on it and its only one -> kick that stone
+			if(!black.containsKey(to) || (black.containsKey(to) && black.get(to) == 1)) { //if more than 1 stones are on the destination field the player is UNNABLE to move
+				kick(to); //if opponent stone is on it and its only one -> kick that stone
 				removeFromDiceStack(to-from); //remove the dice number because it is used to perform the move
 				removeOne(from); //remove the stone from the starting position
 				addOne(to); //add the stone to the ending point
 				return true; //return true as the move was successful
 			}
-		} //analogous for black player
+		} 
+		//analogous for black player
 		if(getCurrentPlayer() == -1 && black.containsKey(from) && to >= 1 && black_kicked == 0 && dice_values.contains(from-to)) {
-			if(white.containsKey(to) && white.get(to) > 1) {
-				return false;
-			} else {
-				if(white.containsKey(to) && white.get(to) == 1) kick(to);
+			if(!white.containsKey(to) || (white.containsKey(to) && white.get(to) == 1)) {
+				kick(to);
 				removeFromDiceStack(from-to);
 				removeOne(from);
 				addOne(to);
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
