@@ -1,8 +1,0 @@
-backgammon/App.java
- backgammon.App
-backgammon/GameEngine.java
- backgammon.GameEngine
-backgammon/Stone.java
- backgammon.Stone
-backgammon/AL.java
- backgammon.AL
