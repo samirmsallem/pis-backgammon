@@ -80,12 +80,12 @@ Die unten genannten Quellen und Literaturen dienten während der gesamten Projek
 
 Der größte Teil der hier aufgelisteten Medien diente damit lediglich zur Erweiterung des Programmierhorizonts, dabei wurde keinerlei Code direkt übernommen!
 - [Processing Language Reference](https://processing.org/reference/) (insbesondere image(), ellipse() und color()) zuletzt abgerufen am 27.06.2021
-- [Infozettel Stream Grundlagen, Matthias Eurich](https://moodle.thm.de/pluginfile.php/325977/mod_resource/content/4/02_streams.html) zuletzt abgerufen 27.06.2021
-- [Infozettel Stream Operationen, Matthias Eurich](https://moodle.thm.de/pluginfile.php/325978/mod_resource/content/1/03_streams.html zuletzt abgerufen 27.06.2021
-- [Wie man zwei Objekte vergleicht, Dominikus Herzberg](https://drive.google.com/file/d/1kYmFtx-mALCyR1FSVfQ6RgzbIrv4Sa-M/view) zuletzt abgerufen 27.06.2021
-- [Junit 4 Assertations](https://github.com/junit-team/junit4/wiki/Assertions) zuletzt abgerufen 27.06.2021
-- [Das große PiS-FAQ, Daniel Sprengler](https://github.com/DSpengler99/pis_faq_ss21) zuletzt abgerufen 27.06.2021
-- [Readme Template zur Abgabe](https://moodle.thm.de/pluginfile.php/796890/mod_resource/content/0/README.Template.md) zuletzt abgerufen 27.06.2021
+- [Infozettel Stream Grundlagen, Matthias Eurich](https://moodle.thm.de/pluginfile.php/325977/mod_resource/content/4/02_streams.html) zuletzt abgerufen am 27.06.2021
+- [Infozettel Stream Operationen, Matthias Eurich](https://moodle.thm.de/pluginfile.php/325978/mod_resource/content/1/03_streams.html) zuletzt abgerufen am 27.06.2021
+- [Wie man zwei Objekte vergleicht, Dominikus Herzberg](https://drive.google.com/file/d/1kYmFtx-mALCyR1FSVfQ6RgzbIrv4Sa-M/view) zuletzt abgerufen am 27.06.2021
+- [Junit 4 Assertations](https://github.com/junit-team/junit4/wiki/Assertions) zuletzt abgerufen am 27.06.2021
+- [Das große PiS-FAQ, Daniel Sprengler](https://github.com/DSpengler99/pis_faq_ss21) zuletzt abgerufen am 27.06.2021
+- [Readme Template zur Abgabe](https://moodle.thm.de/pluginfile.php/796890/mod_resource/content/0/README.Template.md) zuletzt abgerufen am 27.06.2021
 
 
 
