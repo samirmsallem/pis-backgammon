@@ -12,7 +12,7 @@ Bei diesem Spiel treten zwei Personen gegeneinander an. Ziel ist es, die eigenen
 
 ## Screenshot
 
-![Screenshot](sample_game.GIF)
+![Screenshot](sample_game.gif)
 
 ## Bedienungshinweise
 
