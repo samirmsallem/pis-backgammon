@@ -1,7 +1,7 @@
 # Backgammon / Tavla - (PiS, SoSe2021)
 
 
-Autor: Samir Faycal Tahar M'Sallem, 5276295
+Autor: Samir Faycal Tahar M'Sallem
 
 
 ## Kurzbeschreibung 
